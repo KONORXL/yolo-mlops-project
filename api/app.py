@@ -3,10 +3,13 @@ from typing import Any
 import io
 
 from fastapi import FastAPI, File, HTTPException, UploadFile, Query, Response
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 from ultralytics import YOLO
 
 MODEL_PATH = Path("models/best.pt")
+APP_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(
     title="PPE Detection API",
@@ -15,10 +18,11 @@ app = FastAPI(
 )
 
 model = None
+app.mount("/static", StaticFiles(directory=APP_DIR / "static"), name="static")
 
 @app.get("/")
-def root() -> dict[str, str]:
-    return {"message": "PPE Detection API is running"}
+def root() -> FileResponse:
+    return FileResponse(APP_DIR / "templates" / "index.html")
 
 @app.on_event("startup")
 def load_model() -> None:

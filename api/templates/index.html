@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PPE Detection</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">YOLOv8 · FastAPI · Docker</p>
+          <h1>PPE Detection</h1>
+          <p class="description">
+            Detect Personal Protective Equipment and safety violations in
+            industrial environments with a trained YOLOv8 model.
+          </p>
+        </div>
+        <nav class="nav-links" aria-label="Project links">
+          <a href="/docs">API Docs</a>
+          <a
+            href="https://github.com/ikerOpt/yolo-mlops-project"
+            rel="noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        </nav>
+      </section>
+
+      <section class="control-card" aria-labelledby="upload-title">
+        <div class="section-heading">
+          <h2 id="upload-title">Image Input</h2>
+          <span id="file-name" class="file-name">No image selected</span>
+        </div>
+
+        <label class="drop-zone" id="drop-zone" for="image-input">
+          <input
+            id="image-input"
+            type="file"
+            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+          />
+          <img id="upload-preview" class="upload-preview" alt="" />
+          <span class="upload-placeholder">
+            <span class="upload-icon" aria-hidden="true">+</span>
+            <span class="upload-title">Choose an image or drop it here</span>
+            <span class="upload-meta">JPG, JPEG, or PNG</span>
+          </span>
+        </label>
+
+        <div class="settings-row">
+          <label class="confidence-control" for="confidence">
+            <span>Confidence threshold</span>
+            <strong id="confidence-value">0.25</strong>
+          </label>
+          <input
+            id="confidence"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.25"
+          />
+        </div>
+
+        <button id="detect-button" class="detect-button" type="button" disabled>
+          Detect PPE
+        </button>
+        <p id="status-message" class="status-message" role="status"></p>
+      </section>
+
+      <section id="results-section" class="results-section" hidden>
+        <div class="image-grid">
+          <article class="image-panel">
+            <h2>Original Image</h2>
+            <div class="image-frame">
+              <img id="original-image" alt="Selected original" />
+            </div>
+          </article>
+
+          <article class="image-panel">
+            <h2>Detection Result</h2>
+            <div class="image-frame">
+              <img id="result-image" alt="Annotated detection result" />
+            </div>
+          </article>
+        </div>
+
+        <article class="detections-panel">
+          <div class="section-heading">
+            <h2>Detected Objects</h2>
+            <span id="detection-count" class="file-name"></span>
+          </div>
+          <div id="detections-list" class="detections-list"></div>
+        </article>
+      </section>
+
+      <footer class="model-info">
+        <span>YOLOv8n</span>
+        <span>14 classes</span>
+        <span>mAP@50: 0.762</span>
+        <span>mAP@50-95: 0.488</span>
+      </footer>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
