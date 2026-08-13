@@ -1,6 +1,7 @@
 .venv/
 runs/
 *.pt
+!models/best.pt
 *.cache
 __pycache__/
 data/
